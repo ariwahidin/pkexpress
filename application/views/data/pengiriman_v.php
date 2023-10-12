@@ -1,9 +1,20 @@
+<style>
+    #example1x {
+        font-size: 13px !important;
+    }
 
+    .table td,
+    .table th {
+        padding: 0.4rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+</style>
 <div class="content-header">
     <div class="container-fluid">
         <div class="row">
             <div class="col col-md-12">
-                <h3>Data Manifes</h3>
+                <strong>Data Manifest</strong>
             </div>
         </div>
     </div>
@@ -14,7 +25,7 @@
         <div class="row">
             <div class="col col-md-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table id="example1x" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -23,7 +34,7 @@
                                     <th>Manifes</th>
                                     <th>SJ</th>
                                     <th>PO Customer</th>
-                                    <th>Ship date</th>
+                                    <th>ShipDate</th>
                                     <th>Cardname</th>
                                     <th>Driver</th>
                                     <th>Status</th>
@@ -34,21 +45,21 @@
                             </thead>
                             <tbody>
                                 <?php $no = 1;
-                                foreach ($manifes->result() as $data) { ?>
+                                foreach ($manifes as $data) { ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?= $data->dept ?></td>
                                         <td><?= $data->manifes ?></td>
-                                        <td><a href="<?= base_url('data/sj_item/') . $data->sj.'/'.$data->manifes ?>"><?= $data->sj ?></a></td>
+                                        <td><a href="<?= base_url('data/sj_item/') . $data->sj . '/' . $data->manifes ?>"><?= $data->sj ?></a></td>
                                         <td><?= $data->po_customer ?></td>
-                                        <td width="10%"><?= date('d-m-Y', strtotime($data->ship_date)) ?></td>
+                                        <td><?= date('d-m-Y', strtotime($data->ship_date)) ?></td>
                                         <td><?= $data->cardname ?></td>
                                         <td><?= $data->driver ?></td>
                                         <td><?= $data->gr_status_me ?></td>
                                         <td><?= $data->reason ?></td>
                                         <td>
                                             <?php if ($data->gr_status_me != '') { ?>
-                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal<?= $data->sj ?>">
+                                                <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#exampleModal<?= $data->sj ?>">
                                                     Lihat
                                                 </button>
                                                 <!-- Modal -->
@@ -93,7 +104,7 @@
                                         </td>
                                         <td>
                                             <?php if ($data->gr_status_me != '') { ?>
-                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#img<?= $data->sj ?>">
+                                                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#img<?= $data->sj ?>">
                                                     Lihat
                                                 </button>
                                                 <!-- Modal -->
@@ -113,6 +124,11 @@
                                                                             <img src="<?= base_url('uploads/foto_gr/' . $data->foto_bukti) ?>" alt="..." class="img-fluid img-thumbnail" style="max-width: 100%;">
                                                                         </div>
                                                                     </div>
+                                                                    <div class="row">
+                                                                        <div class="col col-md-12">
+                                                                            <p>Created : <?= date("d-m-Y H:i:s", strtotime($data->created)) ?></p>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -127,10 +143,26 @@
                                 <?php } ?>
                             </tbody>
                         </table>
+                        <!-- <table id="tableManifest" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Dept</th>
+                                    <th>Manifes</th>
+                                    <th>SJ</th>
+                                    <th>PO Customer</th>
+                                    <th>Ship date</th>
+                                    <th>Cardname</th>
+                                    <th>Driver</th>
+                                    <th>Status</th>
+                                    <th>Reason</th>
+                                    <th>Detail</th>
+                                    <th>Foto</th>
+                        </tr>
+                        </thead>
+                        </table> -->
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
             </div>
         </div>
     </div>
@@ -141,4 +173,31 @@
     $(document).ready(function() {
         $('#example1x').DataTable();
     })
+</script>
+
+
+<script type="text/javascript">
+    // var table;
+    // $(document).ready(function() {
+
+    //     //datatables
+    //     table = $('#tableManifest').DataTable({
+    //         "processing": true,
+    //         "serverSide": true,
+    //         "order": [],
+
+    //         "ajax": {
+    //             "url": "<?php echo site_url('data/dataManifest') ?>",
+    //             "type": "POST"
+    //         },
+
+
+    //         "columnDefs": [{
+    //             "targets": [0],
+    //             "orderable": false,
+    //         }, ],
+
+    //     });
+
+    // });
 </script>

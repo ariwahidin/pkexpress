@@ -55,17 +55,21 @@
 
 <body class="hold-transition lockscreen">
     <div class="lockscreen-wrapper" id="wadah_lockscreen">
-        
+
         <div class="lockscreen-logo">
             <img src="<?= base_url('assets/admin_lte/') ?>dist/img/pandurasa_kharisma_pt.png" width="30%" alt="PK Logo" class="brand-image img-circle elevation-3" style="opacity: 1">
             <!-- <a href=""><b>My</b>Express</a> -->
         </div>
 
         <div class="lockscreen" align="center">
-            <?php if (!empty($_POST)) { ?>
+            <?php if (!empty($_POST['username'] && empty($jam_operasional))) { ?>
                 <span align="center" class="badge badge-danger">username / password salah</span>
             <?php } ?>
+            <?php if (!empty($jam_operasional)) { ?>
+                <span align="center" class="badge badge-danger"><?=$jam_operasional?></span>
+            <?php } ?>
         </div>
+
 
         <div class="container">
             <div class="row justify-content-md-center">

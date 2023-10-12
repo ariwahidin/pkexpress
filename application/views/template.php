@@ -76,6 +76,14 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#">
+                        <?= ucwords(strtolower($this->session->userdata('username'))) ?>
+                        &nbsp;
+                        <i class="fa fa-user-circle"></i>
+                        <!-- <span class="badge badge-warning navbar-badge">15</span> -->
+                    </a>
+                </li>
                 <!-- Navbar Search -->
                 <!-- <li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -119,17 +127,32 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
 
-                        <!-- <li class="nav-item">
-                            <a href="<?= base_url('manifes') ?>" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
+
+                        <li class="nav-item">
+                            <a href="<?= base_url('position/posisiKendaraan') ?>" class="nav-link">
+                                <i class="nav-icon far fa-circle nav-icon"></i>
                                 <p>
-                                    Input Nomor Manifes
+                                    Posisi Kendaraan
                                 </p>
                             </a>
-                        </li> -->
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="loading()" href="<?= base_url('manifes') ?>" class="nav-link">
+                                <i class="nav-icon far fa-circle nav-icon"></i>
+                                <p>
+                                    Manifest
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="loading()" href="<?= base_url('maintenance/index') ?>" class="nav-link">
+                                <i class="nav-icon far fa-circle nav-icon"></i>
+                                <p>
+                                    Maintenance Kendaraan
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a onclick="loading()" href="<?= base_url('auth/logout') ?>" class="nav-link">
                                 <i class="nav-icon far fa-circle nav-icon"></i>
