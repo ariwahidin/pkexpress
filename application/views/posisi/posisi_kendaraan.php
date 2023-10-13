@@ -32,7 +32,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col col-md-12">
-                <h3>Posisi Kendaraan</h3>
+                <strong>Posisi Kendaraan</strong>
             </div>
         </div>
 
@@ -67,13 +67,16 @@
         }
     };
 
+    var marker = L.marker([lat3, lon3], {
+        alt: "Kantor"
+    }).addTo(map).bindPopup('Kantor <br> Lat:  -6.1322535 <br> Lon: 106.8749151');
 
-    mainload("http://103.135.26.106:23407/pkexpress-development/position/getpositionkendaraan", get = {
+    mainload("<?= base_url('position/getLastVechile') ?>", get = {
         method: 'GET'
     }, config = (data) => {
         // console.log(data)
 
-        data.forEach((elpos) => {
+        data.Payload.forEach((elpos) => {
             console.log(elpos.Latitude + " " + elpos.Longitude + " - " + elpos.CarrierCode);
             var marker = L.marker([elpos.Latitude, elpos.Longitude], {
                 alt: elpos.CarrierCode
@@ -81,18 +84,15 @@
 
         });
     });
-    var marker = L.marker([lat3, lon3], {
-        alt: "TAMU"
-    }).addTo(map).bindPopup('Kantor <br> Lat:  -6.1322535 <br> Lon: 106.8749151');
 </script>
 <script>
     getPositionKendaraan()
 
     function getPositionKendaraan() {
         $.ajax({
-            url : "http://192.168.60.14/anu/",
-            method : "GET",
-            success : function(response){
+            url: "http://192.168.60.14/anu/",
+            method: "GET",
+            success: function(response) {
                 console.log(response)
             }
         })
