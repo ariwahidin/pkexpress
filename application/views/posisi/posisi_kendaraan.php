@@ -41,8 +41,8 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div id="map" style="width:100vw; height:100vh"></div>
+            <div class="col-md-8">
+                <div id="map" style="width:100vw; height:75vh"></div>
             </div>
         </div>
     </div>
@@ -52,11 +52,14 @@
         lon3 = "106.8749151";
 
 
-    var map = L.map('map').setView([lat3, lon3], 11);
+    var map = L.map('map').setView([lat3, lon3], 10);
+
     var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 260,
         attribution: '<a href="https://www.pandurasa.com">&copy; PK</a>'
     }).addTo(map);
+
+
     let mainload = async (endpoint = null, postset = null, cFunction = null) => {
         let res = await fetch(endpoint, postset);
         if (res.status == 200) {
@@ -71,30 +74,33 @@
         alt: "Kantor"
     }).addTo(map).bindPopup('Kantor <br> Lat:  -6.1322535 <br> Lon: 106.8749151');
 
+    // api dari arrobs
     mainload("<?= base_url('position/getLastVechile') ?>", get = {
         method: 'GET'
     }, config = (data) => {
-        // console.log(data)
-
         data.Payload.forEach((elpos) => {
-            console.log(elpos.Latitude + " " + elpos.Longitude + " - " + elpos.CarrierCode);
+            // console.log(elpos.Latitude + " " + elpos.Longitude + " - " + elpos.CarrierCode);
             var marker = L.marker([elpos.Latitude, elpos.Longitude], {
                 alt: elpos.CarrierCode
             }).addTo(map).bindPopup(elpos.CarrierCode + '<br> Lat:  ' + elpos.Latitude + ' <br> Lon: ' + elpos.Longitude + '<br> GPSDate: ' + elpos.GPSDate).openPopup();
 
         });
     });
-</script>
-<script>
-    getPositionKendaraan()
 
-    function getPositionKendaraan() {
-        $.ajax({
-            url: "http://192.168.60.14/anu/",
-            method: "GET",
-            success: function(response) {
-                console.log(response)
-            }
-        })
-    }
+    // api dari mulia track
+    mainload("<?= base_url('position/getApiGpsMulia') ?>", get = {
+        method: 'GET'
+    }, config = (data) => {
+        // console.log(data[0]['Address '])
+        data.forEach((elpos) => {
+            // console.log(elpos.Lat + " " + elpos.Lon + " - " + elpos.Nopol);
+            var marker = L.marker([elpos.Lat, elpos.Lon], {
+                alt: elpos.Nopol
+            }).addTo(map).bindPopup('NoPol : ' + elpos.Nopol +
+                '<br> Lat:  ' + elpos.Lat +
+                '<br> Lon: ' + elpos.Lon +
+                '<br> Address: ' + elpos['Address ']+
+                '<br> GpsTime: ' + elpos.GpsTime).openPopup();
+        });
+    });
 </script>
